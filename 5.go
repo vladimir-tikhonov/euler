@@ -13,9 +13,6 @@ func main() {
 }
 
 func getNewElement(value int) int {
-	if value == 2 {
-		return 2
-	}
 	result := value
 	for i := 2; i < value; i++ {
 		newElementOfI := getNewElement(i)
