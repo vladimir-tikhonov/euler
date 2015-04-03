@@ -2,12 +2,18 @@ package main
 
 import (
 	"fmt"
+	"strconv"
 )
 
 func main() {
-	maxPalindrome := 0
+	var maxPalindrome int64 = 0
 	for i := 100; i < 1000; i++ {
-		palindrome := int(string(i) + reverse(string(i)))
+		palindromePart := strconv.FormatInt(int64(i), 10)
+		palindrome, err := strconv.ParseInt(palindromePart+reverse(palindromePart), 10, 32)
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
 		if isMultiplicationOfTheeDigits(palindrome) && maxPalindrome < palindrome {
 			maxPalindrome = palindrome
 		}
@@ -15,22 +21,22 @@ func main() {
 	fmt.Println(maxPalindrome)
 }
 
-func isMultiplicationOfTheeDigits(value int) (result bool) {
-	firstDivisor, isDivisorFound := firstThreeDigitDivisor(value)
-	if !isDivisorFound {
+func isMultiplicationOfTheeDigits(value int64) (result bool) {
+	lastDivisor, isLastFound := lastThreeDigitDivisor(value)
+	if !isLastFound {
 		return false
 	}
-	if value%firstDivisor != 0 {
+	if value%lastDivisor != 0 {
 		return false
 	}
-	secondDivisor := value / firstDivisor
+	secondDivisor := value / lastDivisor
 	return secondDivisor <= 999 && secondDivisor >= 100
 }
 
-func firstThreeDigitDivisor(value int) (result int, found bool) {
-	for i := 100; i < 1000; i++ {
-		if value%i == 0 {
-			return i, true
+func lastThreeDigitDivisor(value int64) (result int64, found bool) {
+	for i := 999; i > 99; i-- {
+		if value%int64(i) == 0 {
+			return int64(i), true
 		}
 	}
 	return -1, false
