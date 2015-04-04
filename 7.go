@@ -22,7 +22,10 @@ func main() {
 }
 
 func isPrime(value int) bool {
-	for i := 2; i < value/2+1; i++ {
+	if value%2 == 0 {
+		return false
+	}
+	for i := 3; i < value/2+1; i += 2 {
 		if value%i == 0 {
 			return false
 		}
