@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math"
 )
 
 func main() {
@@ -18,7 +19,8 @@ func isPrime(value int) bool {
 	if value%3 == 0 || value%5 == 0 || value%7 == 0 || value%11 == 0 {
 		return false
 	}
-	for i := 3; i < value/2+1; i += 2 {
+	maxDivisor := int(math.Sqrt(float64(value))) + 1
+	for i := 3; i < maxDivisor; i += 2 {
 		if value%i == 0 {
 			return false
 		}
