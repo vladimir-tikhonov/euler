@@ -16,10 +16,7 @@ func main() {
 }
 
 func isPrime(value int) bool {
-	if value%3 == 0 || value%5 == 0 || value%7 == 0 || value%11 == 0 {
-		return false
-	}
-	maxDivisor := int(math.Sqrt(float64(value))) + 1
+	maxDivisor := int(math.Sqrt(float64(value))) + 2
 	for i := 3; i < maxDivisor; i += 2 {
 		if value%i == 0 {
 			return false
